@@ -1,0 +1,17 @@
+description = 'Ethereum JSON-RPC client and server library'
+
+dependencies {
+    compile project(':bytes')
+    compile project(':concurrent-coroutines')
+    compile project(':eth-repository')
+    compile 'com.fasterxml.jackson.core:jackson-databind'
+    compile 'io.vertx:vertx-core'
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core'
+
+    testCompile 'org.bouncycastle:bcprov-jdk15on'
+    testCompile project(':concurrent')
+    testCompile project(':junit')
+    testCompile 'org.junit.jupiter:junit-jupiter-api'
+    testCompile 'org.junit.jupiter:junit-jupiter-params'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine'
+}

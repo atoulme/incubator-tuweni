@@ -21,13 +21,14 @@ import org.apache.tuweni.rlp.RLPReader;
 import org.apache.tuweni.rlp.RLPWriter;
 
 import com.google.common.base.Objects;
+import org.apache.tuweni.units.bigints.UInt256;
 
 /**
  * An Ethereum block.
  */
 public final class Block {
 
-  /**
+    /**
    * Deserialize a block from RLP encoded bytes.
    *
    * @param encoded The RLP encoded block.
@@ -65,6 +66,7 @@ public final class Block {
 
   private final BlockHeader header;
   private final BlockBody body;
+  private UInt256 totalDifficulty;
 
   /**
    * Creates a block.
@@ -130,5 +132,21 @@ public final class Block {
   public void writeTo(RLPWriter writer) {
     writer.writeList(header::writeTo);
     body.writeTo(writer);
+  }
+
+  /**
+   * Gets the total difficulty on this block if set
+   * @return the total difficulty
+   */
+  public UInt256 totalDifficulty() {
+    return totalDifficulty;
+  }
+
+  /**
+   * Sets the total difficulty on this block
+   * @param totalDifficulty the total difficulty of the block.
+   */
+  public void setTotalDifficulty(UInt256 totalDifficulty) {
+    this.totalDifficulty = totalDifficulty;
   }
 }

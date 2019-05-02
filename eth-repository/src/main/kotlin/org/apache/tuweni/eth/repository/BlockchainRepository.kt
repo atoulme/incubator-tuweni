@@ -24,6 +24,7 @@ import org.apache.tuweni.eth.BlockHeader
 import org.apache.tuweni.eth.Hash
 import org.apache.tuweni.eth.TransactionReceipt
 import org.apache.tuweni.kv.KeyValueStore
+import org.apache.tuweni.units.bigints.UInt256
 
 /**
  * Repository housing blockchain information.
@@ -343,6 +344,17 @@ class BlockchainRepository
    */
   fun findBlocksByParentHash(parentHash: Hash): List<Hash> {
     return blockchainIndex.findBy(BlockHeaderFields.PARENT_HASH, parentHash)
+  }
+
+
+  /**
+   * Retrieves the total difficulty of the block header, if it has been computed.
+   *
+   * @param hash the hash of the header
+   * @return the total difficulty of the header if it could be computed.
+   */
+  fun totalDifficulty(hash: Hash): UInt256? {
+    return blockchainIndex.totalDifficulty(hash)
   }
 
   private suspend fun setGenesisBlock(block: Block) {
