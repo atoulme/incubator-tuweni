@@ -23,6 +23,8 @@ import org.apache.tuweni.peer.repository.Peer
 import org.apache.tuweni.peer.repository.PeerRepository
 import java.time.Instant
 import java.util.concurrent.ConcurrentHashMap
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * Memory-backed peer repository.
@@ -30,9 +32,16 @@ import java.util.concurrent.ConcurrentHashMap
  * Useful for proof-of-concept.
  */
 class MemoryPeerRepository : PeerRepository {
+  override fun getIdentities(from: Int, max: Int, ascending: Boolean): List<Identity> {
+    val start = if (ascending) from else max(0, from - max)
+    val end = if (ascending) min(identities.size, from + max) else from
+    return identities.subList(start, end)
+  }
+
+  override fun size(): Int = identities.size
 
   val peerMap = ConcurrentHashMap<Identity, Peer>()
-  val identities = HashSet<Identity>()
+  val identities = ArrayList<Identity>()
   val connections = ConcurrentHashMap<String, Connection>()
 
   override fun storePeer(id: Identity, lastContacted: Instant?, lastDiscovered: Instant?): Peer {
@@ -45,7 +54,9 @@ class MemoryPeerRepository : PeerRepository {
 
   override fun storeIdentity(networkInterface: String, port: Int, publicKey: SECP256K1.PublicKey): Identity {
     val identity = MemoryIdentity(networkInterface, port, publicKey)
-    identities.add(identity)
+    if (!identities.contains(identity)) {
+      identities.add(identity)
+    }
     return identity
   }
 

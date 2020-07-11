@@ -54,7 +54,7 @@ class EthereumClient(
   private val genesisFiles = HashMap<String, GenesisFile>()
   private val services = HashMap<String, RLPxService>()
   private val storageRepositories = HashMap<String, BlockchainRepository>()
-  private val peerRepositories = HashMap<String, PeerRepository>()
+  val peerRepositories = HashMap<String, PeerRepository>()
   private val dnsClients = HashMap<String, DNSClient>()
 
   suspend fun start() {

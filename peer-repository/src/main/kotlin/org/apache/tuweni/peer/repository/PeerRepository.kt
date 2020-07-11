@@ -34,6 +34,8 @@ interface PeerRepository {
 
   fun markConnectionInactive(peer: Peer, identity: Identity)
   fun peerDiscoveredAt(peer: Peer, time: Long)
+  fun size(): Int
+  fun getIdentities(from: Int, max: Int, ascending: Boolean): List<Identity>
 }
 
 /**

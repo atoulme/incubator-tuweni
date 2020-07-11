@@ -14,12 +14,16 @@ new Vue({
     el: '#app',
     data () {
         return {
-            config: null
+            config: null,
+            identities: null,
         }
     },
     mounted () {
         axios
             .get('/rest/config')
             .then(response => (this.config = response.data));
+        axios
+            .get('/rest/identities/repositories')
+            .then(response => (this.identities = response.data));
     }
 })
