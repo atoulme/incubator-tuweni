@@ -20,6 +20,8 @@ dependencies {
   implementation project(':rlp')
   implementation project(':rlpx')
   implementation 'io.vertx:vertx-core'
+  implementation 'io.vertx:vertx-lang-kotlin'
+  implementation 'io.vertx:vertx-lang-kotlin-coroutines'
   implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core'
   implementation 'org.slf4j:slf4j-api'
 
